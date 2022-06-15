@@ -1,0 +1,6 @@
+# Katseseadme skeem
+
+```{r setting-up-test-device, fig.cap = "Matemaatilise ja füüsikalise pendli katseseade", fig.margin = TRUE}
+include_svg("katseseadme-ülesseadmine/katseseadme-ülesseadmine.svg")
+```
+

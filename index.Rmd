@@ -1,0 +1,75 @@
+--- 
+title: "Matemaatiline ja füüsikaline pendel"
+author: 'peacecop kalmer:'
+number: 3
+#date: "`r Sys.Date()`"
+date-work: "20220325"
+date-handing-over: "20220615"
+group: "MLLBk-1"
+site: bookdown::bookdown_site
+documentclass: article
+download: ["pdf"]
+bibliography: references.bib
+description: |
+  This is a minimal example of using the bookdown package to write a book.
+  set in the _output.yml file.
+  The HTML output format for this example is bookdown::bs4_book,
+biblio-style: newapa
+#geometry: left=3cm, right=3cm, top=2cm, bottom=2cm
+fontsize: 12pt
+mainfont: Latin Modern Roman
+sansfont: Arial
+monofont: Latin Modern Mono
+mathfont: Latin Modern Math
+linestretch: 1.5
+toc-depth: 5
+lof: yes
+lot: yes
+toc: yes
+classoption: twoside
+lang: et
+link-citations: yes
+#subtitle: LABORATOORNE TÖÖ 1
+---
+
+```{r setup, echo=FALSE, message=FALSE}
+# example R options set globally
+options(width = 60)
+options(bookdown.render.file_scope = FALSE)
+# example chunk options set globally
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  echo = TRUE
+  )
+knitr::opts_chunk$set(out.height = "\\textheight",  out.width = "\\textwidth",
+                      out.extra = "keepaspectratio=true")
+knitr::opts_chunk$set(fig.margin = TRUE)
+include_svg = function(path) {
+  if (knitr::is_latex_output()) {
+    output = xfun::with_ext(path, 'pdf')
+    # you can compare the timestamp of pdf against svg to avoid conversion if necessary
+    system2('rsvg-convert', c('-f', 'pdf', '-a', '-o', shQuote(c(output, path))))
+  } else {
+    output = path
+  }
+  knitr::include_graphics(output)
+}
+if (!require("librarian")) {
+  install.packages("librarian", dependencies = TRUE)
+}
+
+library(librarian)
+
+print_table <- function(data_frame, caption, digits = 2) {
+    if (!is.null(knitr::opts_knit$get('rmarkdown.pandoc.to')) && (knitr::opts_knit$get('rmarkdown.pandoc.to') == "docx")) {
+      librarian::shelf("flextable")
+      table <- (flextable(data_frame))
+    } else {
+      librarian::shelf("kableExtra")
+      table <- (kable(data_frame, format = "latex", booktabs = TRUE, escape = FALSE, caption = caption, digits = digits))
+    } 
+  return(table)
+}
+
+```

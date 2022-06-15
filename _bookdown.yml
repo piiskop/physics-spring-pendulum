@@ -1,0 +1,13 @@
+book_filename: "physics-mathematical-pendulum"
+new_session: false
+delete_merged_file: true
+rmd_files: [
+  "index.Rmd",
+  "töö-eesmärgid.Rmd",
+  "töövahendid.Rmd",
+  "katseseadme-ülesseadmine/katseseadmete-skeemid.Rmd",
+  "töö-käik/töö-käik.Rmd",
+  "andmeanalüüs.Rmd",
+  "küsimused-vastused.Rmd"
+#  "99-references.Rmd"
+]

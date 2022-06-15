@@ -1,0 +1,15 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+
+# Töö eesmärgid
+
+1.  Matemaatilise ja füüsikalise pendli võnkeperioodi valemite paikapidavus katseliselt uuritud.
+
+2.  Raskuskiirendus katsetamiskohas pendlimeetodil määratud.
+
+3. Kontrollitud, kas füüsikalise pendli teoreetilisest käsitlusest leitud pendli võnkeperiood langeb kokku katsest määratud perioodiga.
+
+4. Võnkumiste põhjal keha intertsimomendi katselise määramise tundmine.
