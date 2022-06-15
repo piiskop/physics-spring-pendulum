@@ -1,64 +1,35 @@
 # Andmeanalüüs
 
-## Matemaatiline pendel
+## Praktiline osa 1
 
-1.  Saadud andmete põhjal lasin joonistada graafiku $T^2 := f(l)$ kandes horisontaalteljele pendli pikkuse *l*, vertikaalteljele võnkeperioodi ruudu $T^2$. Tegin järeldused valemi \@ref(eq:length) paikapidavuse kohta. Graafik on joonisel \@ref(fig:t-squared).
+1. Aktiveerisin graafiku. Selleks, et andmed sobituksid üle graafikuakna, tuli valida akna teguiribalt vasakpoolseim ikoon ning seda vajutada. Nii nägin graafikult suuremalt kogutud andmeid ning ka neile sobitatud vastavat sirget.
 
-    ```{r label = "t-squared", fig.cap="Võnkeperioodi ruudu sõltuvus pendli pikkusest"}
+2.  Uurisin deformatsiooni-jõu graafikut. Jõu ja deformatsiooni vahelist seost kirjeldab lineaarne sõltuvus (\@ref(eq:force)). Seega, sobitades antud graafikuosa regressioonisirgega (üldvalem $y := k \cdot x + b$, kus *y* on vertikaalteljel olev suurus - mul vastas see jõule *F* - ning *x* horisontaalteljel olev suurus - mul vastas see deformatsioonile *x*) sai leida sirge tõusu (*slope*), mis ongi jälkus *k*. Kuivõrd sirge tõus on negatiivne, siis jälkuse väärtus ise on absoluutväärtus tõusust *k*.
+
+    ```{r label = "k", fig.cap="Võnkeperioodi ruudu sõltuvus pendli pikkusest"}
 librarian::shelf(
   ggplot2, latex2exp,
                  ggpubr # for stat_regline_equation
   )
-ggplot(data = mathematical_pendulum, aes(x = l, y = T_squared)) + geom_point() + labs(x = TeX("$\\frac{l}{m}$"), y = TeX("$\\frac{T^2}{s^2}$")) +
+ggplot(data = determination_of_spring_stiffness, aes(x = delta_x, y = F)) + geom_point() + labs(x = TeX("$\\frac{\\Delta(x)}{m}$"), y = TeX("$\\frac{F}{N}$")) +
   geom_smooth() +
   stat_regline_equation()
+    delta_x_F_lm <- lm(F ~ delta_x, data = determination_of_spring_stiffness)
+summary_delta_x_F_lm <- summary(delta_x_F_lm)
+abs_k <- abs(summary_delta_x_F_lm$coefficients["delta_x", "Estimate"])
+
 
     ```
 
-    Valem \@ref(eq:length) paistab küll paika pidavat, sest on näha lineaarne graafik ignoreerides üht kõrvalekallet viiendas katses. Millest see kõrvalekalle võis tuleneda? ma ei mäleta, millist seadet ma kasutasin mõõtmiseks. Kui see oli eelmisest sajandist pärit pendlimasina sisse ehitatud värk, siis selle kuva oli katkine - nimelt mõned kriipsud, millest moodustati numbreid, olid puudu, mistõttu kui näidati ainult keskmist rõhtsat ja ülemist paremat kriipsu, võisingi teha järelduse, et näidati numbrit "4", mitte numbrit "2".
+    **Vedru jälkus:** $|k| := \mathrm{`r abs_k` \times \frac{kg}{s^2}}$
 
-2.  Lasin arvutada sirge tõusu *k* ning raskuskiirenduse *g* vastavalt seosele \@ref(eq:period-squared). Diskreetsed *k* väärtused on ka tabelis \@ref(tab:mathematical-pendulum).
+3. Esitasin protokollis kas *DataStudio*s kuvatud deformatsiooni-jõu graafik või koostasin vastavalt tabelile \@ref(tab:determination-of-spring-stiffness) ise deformatsiooni-jõu graafiku.
 
-    ```{r label = "regression-mathematical-pendulum"}
-    l_T_squared_lm <- lm(T_squared ~ l, data = mathematical_pendulum)
+4.  Kontrollisin, kas Hooke'i seadus kehtib, st kui lähedal on deformatsiooni ja jõu graafik lineaarsele sõltuvusele. Selleks arvutasin saadud deformatsiooni-jõu graafikule Pearsoni korrelatsiooni kordaja $R_p$. Tegin järeldused katse õnnestumise kohta.
 
-summary_l_T_squared <- summary(l_T_squared_lm)
-g_mathematical_pendulum <- 4 * pi^2 / summary_l_T_squared$coefficients["l", "Estimate"]
+    ```{r label = "correlation"}
+    R_p <- cor(F, delta_x, method = "pearson")
     ```
 
-    Sirge, mis polegi sirge minu eksperimendis, tõus on $\mathrm{`r signif(summary_l_T_squared$coefficients["l", "Estimate"], digits = 7)` \cdot \frac{s^2}{m}}$. Näeme ka regressioonanalüüsist, et need andmed ei kõlba mitte kuskile. Ainult kui see üks mainitud "4" teha "2"-ks, saaksin suurepärase tulemuse. Nende andmetega, mis mul on, on tõesti *b* väärtus nullist oluliselt erinev, mida ei tohiks juhtuda, sest kui pendlil pikkus puudub, ei saa see ka võnkuda. Noja *g* väärtuseks sain selle ühe kõrvalekalde tõttu $\mathrm{`r signif(g_mathematical_pendulum, digits = 7)` \cdot \frac{m}{s^2}}$.
+    $R_p := `r R_p`$
     
-3.  Otsisin Pearsoni korrelatsioonikordaja $R_p$ ning interpreteerisin tulemust.
-
-    ```{r label = "correlation-mathematical-pendulum"}
-    R_p <- cor(l, T_squared, method = "pearson")
-    ```
-    
-    Pearsoni korrelatsioonikordaja `r R_p` näitab tõenäosust, mille puhul võime väita, et võnkeperioodi ruut sõltub pendli pikkusest. Sellise tõenäosusega, nagu mul siin, ei ole muidugi midagi pihta hakata. Jällegi ainult seetõttu, et viiendas katses läks miski nihu.
-    
-4.  Lasin arvutada, milline oli suhteline erinevus arvutatud *g* ja standard-*g* vahel. Tegin järeldused.
-
-    ```{r label = "r-t"}
-    R_T <- abs(g - g_mathematical_pendulum) / g
-    ```
-    
-    Suhteline erinevus on `r R_T`.
-
-## Füüsikaline pendel
-
-Lasin arvutada võnkeperioodi mõõtemääramatuse $\Delta(T)$, kui Studenti koefitsient 95% usaldusväärsusel kuue katse korral on 2.57, ja andsin vastuse füüsikalise pendli võnkeperioodi kujul $\overline{T_f} \pm \Delta(T) \cdot \mathrm{s}$.
-```{r label = "delta-t"}
-mean_T_r <- mean(T_r)
-delta_T <- 2.57 * sqrt((sum(mean_T_r - T_r))^2 / 30)
-```
-
-Füüsikalise pendli võnkeperiood oli $\mathrm{(`r signif(mean_T_r, digits = 7)` \pm `r signif(delta_T, digits = 7)`) \times s}$.
-
-
-Lasin arvutada teoreetilise inertsimomendi *I* ning selle kaudu teoreetilise füüsikalise pendli perioodi $T_f$, valemit \@ref(eq:period-physical) kasutades.
-```{r label = "inertia-period"}
-I <- (L^2 / 12 + d^2) * m
-T_f <- 2 * pi * sqrt(I / (m * g * d))
-```
-
-Inertsimoment oli $\mathrm{`r I` \times kg \times m^2}$. Periood oli $\mathrm{`r signif(T_f, digits = 7)` \cdot s}$.

@@ -1,4 +1,4 @@
-book_filename: "physics-mathematical-pendulum"
+book_filename: "physics-spring-pendulum"
 new_session: false
 delete_merged_file: true
 rmd_files: [

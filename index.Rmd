@@ -1,9 +1,9 @@
 --- 
-title: "Matemaatiline ja füüsikaline pendel"
+title: "Lihtne harmooniline võnkumine - vedrupendel"
 author: 'peacecop kalmer:'
-number: 3
+number: 4
 #date: "`r Sys.Date()`"
-date-work: "20220325"
+date-work: "20220506"
 date-handing-over: "20220615"
 group: "MLLBk-1"
 site: bookdown::bookdown_site

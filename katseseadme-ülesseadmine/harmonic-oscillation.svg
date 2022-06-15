@@ -2,13 +2,13 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="179.00954mm"
-   height="243.41666mm"
-   viewBox="0 0 179.00954 243.41666"
+   width="167.65488mm"
+   height="243.41667mm"
+   viewBox="0 0 167.65488 243.41668"
    version="1.1"
    id="svg5"
    inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
-   sodipodi:docname="katseseadme-ülesseadmine.svg"
+   sodipodi:docname="harmonic-oscillation.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -27,9 +27,9 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:zoom="0.64052329"
-     inkscape:cx="402.79566"
-     inkscape:cy="381.71914"
+     inkscape:zoom="0.90583672"
+     inkscape:cx="47.469924"
+     inkscape:cy="488.49863"
      inkscape:window-width="1920"
      inkscape:window-height="1141"
      inkscape:window-x="1920"
@@ -39,41 +39,16 @@
     <inkscape:grid
        type="xygrid"
        id="grid916"
-       originx="4.3845303"
-       originy="-47.625002" />
+       originx="-6.9701168"
+       originy="-47.625005" />
   </sodipodi:namedview>
   <defs
-     id="defs2">
-    <pattern
-       inkscape:collect="always"
-       patternUnits="userSpaceOnUse"
-       width="2"
-       height="2"
-       patternTransform="translate(0,0) scale(10,10)"
-       id="Checkerboard"
-       inkscape:stockid="Checkerboard"
-       inkscape:isstock="true">
-      <rect
-         style="fill:black;stroke:none"
-         x="0"
-         y="0"
-         width="1"
-         height="1"
-         id="rect9862" />
-      <rect
-         style="fill:black;stroke:none"
-         x="1"
-         y="1"
-         width="1"
-         height="1"
-         id="rect9864" />
-    </pattern>
-  </defs>
+     id="defs2" />
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(4.3845302,-47.625)">
+     transform="translate(-6.970117,-47.625)">
     <rect
        style="fill:#ff8300;stroke-width:0.352999;stroke-linecap:square;paint-order:markers fill stroke"
        id="rect940"
@@ -109,29 +84,26 @@
        height="127"
        x="111.125"
        y="47.625" />
+    <g
+       id="g8795"
+       transform="translate(0,26.458334)">
+      <rect
+         style="fill:#048300;fill-opacity:1;stroke-width:0.352999;stroke-linecap:square;paint-order:markers fill stroke"
+         id="rect997"
+         width="89.958336"
+         height="5.2916665"
+         x="37.041668"
+         y="58.208332" />
+      <rect
+         style="fill:#058300;fill-opacity:1;stroke-width:0.352999;stroke-linecap:square;paint-order:markers fill stroke"
+         id="rect999"
+         width="15.875"
+         height="15.875"
+         x="105.83333"
+         y="52.916664" />
+    </g>
     <rect
-       style="fill:#048300;fill-opacity:1;stroke-width:0.352999;stroke-linecap:square;paint-order:markers fill stroke"
-       id="rect997"
-       width="89.958336"
-       height="5.2916665"
-       x="37.041668"
-       y="58.208332" />
-    <rect
-       style="fill:#058300;fill-opacity:1;stroke-width:0.352999;stroke-linecap:square;paint-order:markers fill stroke"
-       id="rect999"
-       width="15.875"
-       height="15.875"
-       x="105.83333"
-       y="52.916664" />
-    <rect
-       style="fill:#ff0000;fill-opacity:1;stroke:#fe00f9;stroke-width:0.352999;stroke-linecap:square;stroke-opacity:1;paint-order:markers fill stroke"
-       id="rect1045"
-       width="15.875"
-       height="37.041668"
-       x="42.333332"
-       y="52.916664" />
-    <rect
-       style="fill:#ff0100;fill-opacity:1;stroke-width:0.352999;stroke-linecap:square;paint-order:markers fill stroke"
+       style="fill:#006400;fill-opacity:1;stroke-width:0.352999;stroke-linecap:square;paint-order:markers fill stroke"
        id="rect1047"
        width="5.2916665"
        height="5.2916665"
@@ -236,35 +208,6 @@
        height="15.875"
        x="42.333332"
        y="158.75" />
-    <text
-       xml:space="preserve"
-       style="font-weight:bold;font-size:4.23333px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#ff8300;fill-opacity:1;stroke:#ff0000;stroke-width:0.352999;stroke-linecap:square;stroke-opacity:1;paint-order:markers fill stroke"
-       x="55.110329"
-       y="118.58733"
-       id="text2635"><tspan
-         sodipodi:role="line"
-         id="tspan2633"
-         style="stroke:none;stroke-width:0.353"
-         x="55.110329"
-         y="118.58733">väljavenitamata vedru</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-weight:bold;font-size:4.23333px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#ff8300;fill-opacity:1;stroke:none;stroke-width:0.352999;stroke-linecap:square;stroke-opacity:1;paint-order:markers fill stroke"
-       x="-4.4486089"
-       y="149.34799"
-       id="text7985"><tspan
-         sodipodi:role="line"
-         id="tspan7983"
-         style="stroke-width:0.353"
-         x="-4.4486089"
-         y="149.34799">väljavenitatud vedru</tspan></text>
-    <rect
-       style="fill:url(#Checkerboard);fill-opacity:1;stroke:none;stroke-width:0.353;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
-       id="rect8803"
-       width="10.583333"
-       height="153.45833"
-       x="79.375"
-       y="137.58333" />
     <circle
        id="path11063"
        style="fill:#ff8300;stroke:#000000;stroke-width:0.264583"
@@ -289,41 +232,73 @@
        cx="80.205482"
        cy="159.47205"
        r="0.073407561" />
+    <rect
+       style="fill:#000007;fill-opacity:1;stroke-width:0.352999;stroke-linecap:square;paint-order:markers fill stroke"
+       id="rect8891"
+       width="15.875"
+       height="13.229166"
+       x="42.333332"
+       y="277.8125" />
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke-width:0.352999;stroke-linecap:square;paint-order:markers fill stroke"
+       id="rect8959"
+       width="10.583333"
+       height="2.6458333"
+       x="44.979168"
+       y="275.16666" />
     <path
-       style="fill:none;fill-opacity:1;stroke:#0000f9;stroke-width:0.352999;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
-       d="M 31.75,158.75 H 79.374999"
-       id="path11104"
-       sodipodi:nodetypes="cc" />
+       style="fill:#0000ff;fill-opacity:1;stroke-width:0.352999;stroke-linecap:square;paint-order:markers fill stroke"
+       d="M 42.333332,174.625 H 21.166666"
+       id="path9078" />
     <path
-       style="fill:none;fill-opacity:1;stroke:#0000f9;stroke-width:0.352999;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
-       d="M 31.75,137.58333 H 79.374999"
-       id="path11238"
-       sodipodi:nodetypes="cc" />
+       style="fill:none;fill-opacity:1;stroke:#0000f7;stroke-width:0.352999;stroke-linecap:square;stroke-opacity:1;paint-order:markers fill stroke"
+       d="M 44.979165,275.16666 H 26.458332"
+       id="path9544" />
     <path
-       style="fill:none;fill-opacity:1;stroke:#0000f9;stroke-width:0.352999;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
-       d="M 37.041666,137.58333 V 158.75"
-       id="path11240" />
+       style="fill:none;fill-opacity:1;stroke:#0000f7;stroke-width:0.352999;stroke-linecap:square;stroke-opacity:1;paint-order:markers fill stroke"
+       d="m 42.333332,174.625 h -15.875"
+       id="path9678" />
+    <path
+       style="fill:none;fill-opacity:1;stroke:#0000f7;stroke-width:0.352999;stroke-linecap:square;stroke-opacity:1;paint-order:markers fill stroke"
+       d="M 29.104166,275.16666 V 174.625"
+       id="path9680" />
     <text
        xml:space="preserve"
-       style="font-weight:bold;font-size:4.23333px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#050004;fill-opacity:1;stroke:#fe00f9;stroke-width:0.352999;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
-       x="51.483887"
-       y="215.92892"
-       id="text13141"><tspan
+       style="font-weight:bold;font-size:4.23333px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0.352999;stroke-linecap:square;stroke-opacity:1;paint-order:markers fill stroke"
+       x="-275.54077"
+       y="22.798267"
+       id="text10696"
+       transform="rotate(-90)"><tspan
          sodipodi:role="line"
-         id="tspan13139"
-         style="fill:#050004;fill-opacity:1;stroke:none;stroke-width:0.353"
-         x="51.483887"
-         y="215.92892">mõõdulint</tspan></text>
+         id="tspan10694"
+         style="fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0.353"
+         x="-275.54077"
+         y="22.798267">minimaalne kaugus 0.4 m lähimas asendis</tspan></text>
+    <path
+       style="fill:none;fill-opacity:1;stroke:#ff00f7;stroke-width:0.352999;stroke-linecap:square;stroke-opacity:1;paint-order:markers fill stroke"
+       d="m 58.208332,288.39583 c 11.927789,0.60463 28.419226,4.24527 38.716479,-3.47575 7.178179,-5.3823 9.108019,-17.77161 12.417379,-25.78492 6.01483,-14.56437 12.60213,-28.89859 18.14278,-43.67365 3.01268,-8.03381 5.35132,-16.31076 8.52587,-24.24712 1.57587,-3.93968 4.57421,-7.36819 6.43451,-11.11183 1.92038,-3.86457 9.29721,-8.85056 12.49921,-11.53046"
+       id="path12309" />
     <text
        xml:space="preserve"
-       style="font-weight:bold;font-size:4.23333px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#050004;fill-opacity:1;stroke:none;stroke-width:0.352999;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
-       x="15.875"
-       y="72.62709"
-       id="text17477"><tspan
+       style="font-weight:bold;font-size:4.23333px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:none;fill-opacity:1;stroke:#ff00f7;stroke-width:0.352999;stroke-linecap:square;stroke-opacity:1;paint-order:markers fill stroke"
+       x="64.822914"
+       y="284.42709"
+       id="text16625"><tspan
          sodipodi:role="line"
-         id="tspan17475"
-         style="fill:#ff0004;fill-opacity:1;stroke-width:0.353"
-         x="15.875"
-         y="72.62709">jõusensor</tspan></text>
+         id="tspan16623"
+         style="fill:#fc00ff;fill-opacity:1;stroke:none;stroke-width:0.353"
+         x="64.822914"
+         y="284.42709">liidesesse</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-weight:bold;font-size:4.23333px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#00000c;fill-opacity:1;stroke:none;stroke-width:0.352999;stroke-linecap:square;stroke-opacity:1;paint-order:markers fill stroke"
+       x="6.6145835"
+       y="284.68237"
+       id="text24207"><tspan
+         sodipodi:role="line"
+         id="tspan24205"
+         style="fill:#00000c;fill-opacity:1;stroke-width:0.353"
+         x="6.6145835"
+         y="284.68237">liikumissensor</tspan></text>
   </g>
 </svg>

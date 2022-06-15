@@ -2,201 +2,118 @@
 
 ## Teoreetilised alused
 
-### Matemaatiline pendel
-
-Matemaatiliseks pendliks nimetatakse punktmassi, mis on riputatud mitteveniva, kaaluta niidi otsa ja võib raskusjõu mõjul võnkuda vertikaaltasandis. Matemaatiline pendel on idealiseeritud seadeldis ja seda pole tegelikult võimalik valmistada. Enam-vähem vastab nendele tingimustele peenikese niidi otsa riputatud väike raske kuulike.
-
-Väikese amplituudi korral (kuni 5°) väljendab matemaatilise pendli võnkeperioodi *T* üsna täpselt järgmine valem:
-
-```{=tex}
-\begin{align}
-T := 2 \cdot \pi \cdot \sqrt{\frac{l}{g}},
-(\#eq:period-mathematical)
-\end{align}
-```
-
-kus *l* on pendli pikkus ja *g* raskuskiirendus katsetamise kohas. Võttes mõlemad võrrandi pooled ruutu ja avaldades saadud seosest pendli pikkuse *l*, saame:
+Kujutlesin vedru, mis ripub statiivi küljes. Kui vedru küljes raskust ei ole, siis on selle pikkuseks *L* (seisupikkus). Kui vedrule lisatakse raskus, siis selle pikkus suureneb $\Delta(L)$'i võrra. Raskuse tasakaaluasend on nüüd vedru alguspunktist $L + \Delta(L)$'i kaugusel. Mis juhtub siis, kui vedru tasakaaluasendist veidi allapoole venitada? Vedru rakendab vastujõudu (elastsusjõudu) *F*, kus
 
 
 ```{=tex}
 \begin{align}
-l := \frac{g \cdot T^2}{4 \cdot \pi^2},
-(\#eq:length)
+F := -k \cdot x,
+(\#eq:force)
 \end{align}
 ```
 
-Saadud valemist on näha, et pendli pikkuse *l* ja selle võnkeperioodi *T* ruudu vahel on lineaarne seos.
+milles *x* on vedru pikkuse muutus (kaugus tasakaaluasendist) ja *k* on vedru jäikus. Miinusmärk avaldises näitab, et jõu suund on vastupidine raskuse nihke suunaga. Kui vedru venitatakse allapoole, siis elastsusjõud on suunatud üles ja vastupidi, surudes vedru kokku, on elastsusjõud suunatud alla. Vedru elastsusjõud on alati suunatud tasakaaluasendi poole. Kokkuvõttes paneb elastsusjõud raskuse üles-alla võnkuma.
 
-### Füüsikaline pendel
-
-Füüsikaliseks pendliks võib olla iga kõva keha, mis raskusjõu mõjul võib võnkuda ümber horisontaalse pöörlemistelje. Selliseid pendleid kohtab palju: seinakella pendlid, laes rippuvad lühtrid, käes rippuv portfell jms. Ka matemaatiline pendel kujutab endast tegelikult füüsikalist pendlit ja seda rakendatakse vaid seetõttu, et selle teooria on lihtsam füüsikalise pendli omast.
-
-Eeldusel, et võnkeamplituud ei ole suur (alla 5°), on füüsikalise pendli periood *T* väljendatav valemiga
+Juhul, kui võnkuvale kehale ei mõju summutavaid jõude (hõõrdejõud, takistusjõud), siis muutub keha kaugus tasakaaluasendist ehk hälve *x* muutub aja jooksul perioodiliselt vastavalt valemile
 
 
 ```{=tex}
 \begin{align}
-T := 2 \cdot \pi \cdot \sqrt{\frac{I}{m \cdot g \cdot d}},
-(\#eq:period-physical)
+x := x_{max} \cdot sin(2 \cdot \pi \cdot f \cdot t + \phi_0) = x_{max} \cdot sin(\frac{2 \cdot \pi \cdot t}{T} + \phi_0),
+(\#eq:deviation)
 \end{align}
 ```
 
-kus *I* on pendli inertsimoment pöörlemistelje suhtes, *m*: pendli mass, *g*: raskuskiirendus ja *d*: pendlikeha raskuskeskme kaugus pöörlemisteljest.
+kus $x_{max}$ on võnkumise amplituud ehk maksimaalne hälve tasakaaluasendist (võib tähistada ka tähisega *A*), *f* on võnkumise sagedus, $\phi_0$ on algfraas ja $T := \frac{1}{f}$ on võnkeperiood. Siinuse argumenti $2 \cdot \pi \cdot t + \phi_0$ nimetatakse võnkumiste faasiks. Üldiselt kirjeldab faas võnkumise hetkeseisundit (kas pendel on parasjagu maksimaalses hälbes, tasakaaluasendis või kusagil vahepeal) ja seda mõõdetakse radiaanides või kraadides. Täisperiood ehk täisvõnge on 360° ehk $2 \cdot \pi$ radiaani. Samuti iseloomustab faas, kuspool tasakaaluasendit pendel hetkel viibib. Faasi lugemise alguspunkt (nullpunkt) valitakse sageli tasakaaluasend, millele veerandperioodi järel järgneb maksimum.
 
-## Töö sisu
+Võnkeperiood sõltub raskuse massist *m* ja vedru jälkusest *k* vastavalt valemile
 
-### Praktiline osa 1
+```{=tex}
+\begin{align}
+T := 2 \cdot \pi \cdot \sqrt{\frac{m}{k}}.
+(\#eq:period)
+\end{align}
+```
 
-#### Tutvumime katseseadmel oleva matemaatilise ja füüsikalise pendliga
+Vedru võnkumise ajal muundub selle kineetiline energia pidevalt potentsiaalseks energiaks ja vastupidi. Kui hõõrdumist mitte arvestada, siis süsteemi koguenergia jääb konstantseks. Kui raskus on ülemises või alumises asendis, siis on võnkliikumise potentsiaalne energia tasakaaluasendi suhtes maksimaalne, kineetiline energia aga minimaalne. (Kineetiline energia on seotud raskuse liikumiskiiruse ruuduga. Alumises ja ülemises asendis on aga raskus paigal.) Kui raskus on jõudnud tasakaaluasendisse, siis on selle potentsiaalne energia tasakaaluasendi suhtes null, kuid kineetiline energia maksimaalne.
 
-Matemaatilist pendlit (joonisel \@ref(fig:setting-up-test-device)) kujutab niidi otsa riputatud pendlikeha (raske kuulike), mis võib võnkuda ühes tasandis. Pendli pikkust *l* arvestatakse kinnituspunktist kuni pendlikeha keskpaigani (jooneni pendelkehal). Pendli pikkust saab reguleerida pendliniidi üht haru hoidva kruvi *A* abil, mis asub katseseadme üleval osas. Teise haru üleval otsas asub väike vändake, mille abil on võimalik niidil keerdusid maha kerida (pendli niit ei tohi katsetamise ajal olla iseendaga keerdus). Pendli pikkust tuleb mõõta eraldi joonlauaga, sest tugisambal olev mõõtejoonlaud pole kahjuks täpne.
+Võnkliikumise potentsiaalne energia **tasakaaluasendi suhtes** on
 
-Füüsikalist pendlit (joonis \@ref(fig:setting-up-test-device)) kujutab varras pikkusega *L*, mis võib võnkuda ümber telje *O*. Ühtlase varda raskuskese asub teatavasti varda geomeetrilises keskpunktis *C*. Raskuskeskme kaugus pöörlemisteljest on *d*. Telje *O* asukohta on võimalik katseseadmel muuta.
+```{=tex}
+\begin{align}
+E_{pot} := \frac{k \cdot x^2}{2}.
+(\#eq:potential-energy)
+\end{align}
+```
 
-Katseseade on varustatud fotoväravaga, mis koos *xPlorer GLX*'ga võimaldab loendada täisvõngete arvu *N*, mõõta võnkeperioodi *T* kui ka võnkumiseks kulunud aega *t*. Et loendamine toimuks, tuleb fotovärava fotosilm tõsta sellisele kõrgusele, et võnkuva pendli ots katkestaks fotosilmas oleva valgusvoo (kriips pendelkehal peaks asuma fotosilmaga ühel ja samal kõrgusel). Õigest kõrgusest annab märku digitaaladapteri vastava ühenduspesa roheline tuluke (*xPlorer GLX* peab olema katsetamise ajaks sisse lülitatud). Juhul, kui fotovärav registreerib pendelkeha võnkumist, siis peaks pendelkeha fotoväravat läbimise hetkel vilkuma digitaaladapteril roheline tuluke.
+Kineetiline energia määratakse valemiga
 
-#### Kuidas sõltub matemaatilise pendli võnkeperiood pendli pikkusest?
+```{=tex}
+\begin{align}
+E_{kin} := \frac{m \cdot v^2}{2}
+(\#eq:kinetic-energy)
+\end{align}
+```
 
-Uurisin seda katseliselt:
+## Praktiline osa 1: vedru jälkuse määramine
 
-1. Esimesel vaatlusel reguleerisin pendli võimalikult pikaks. Järgmistel vaatlustel vähendasin pendli pikkust järk-järgult.
+Esmalt lasin arvutada vedru jälkuse *k*. Jõusensori abil mõõdetakse jõudu, mis pingutab raskusega vedru. Joonlaua abil tuli mõõta vedru deformatsioon (vedru pikkuse suurenemine võrreldes algse pikkusega) ning see arvutisse sisestada. Kuivõrd vedrule mõjuv jõud ja selle poolt põhjustatud deformatsioon on võrdelises sõltuvuses (valem \@ref(eq:force)), siis saab programmi *DataStudio* abil arvutada jõu-deformatsiooni suuruse *F(x)* andmetele kõige paremini sobiva sirge tõusu, mis ongi vedru jälkus *k*:
 
-2. Kontrollisin, kas pendel võnkus fotosilma vahes takistamatult. Seejärel ühendasin fotovärava digitaaladapteri vahendusel *xPlorer GLX*'ga ja lülitasin seadme sisse. Kui *xPlorer GLX* küsis, millise anduriga on tegemist, siis tuli valida sealt *Photogate Pendulum*.
+1. Ühendasin liidese arvutiga, lülitasin liidese sisse ning seejärel panin arvuti tööle. Ühendasin jõusensori pistiku liidese analoogsisendisse *A*. Avasin *DataStudio* faili **harmooniline vonkumine 1.ds**. Avatud dokumendis on graafik *jõud - pikkus* (*Force - Deformation*).
 
-3. Edasi tuli minna põhimenüüsse. Avasin menüüst *Table*'i, märkisin *Statistic*'i menüüs linnukese ette *Average*'le (keskmine periood *Avg*), *standard deviation*ile (standardhälve *σ*) ja *Count* (võngete arv *#*). Standardhälvet laboritöös kirja polnud vaja panna, aga kui see on väike, siis annab see tunnistust edukast katsest.
+2. Jõusensori kinnitasin statiivi külge konksuga allapoole (joonis \@ref(fig:setting-up-test-device)). Vedru riputasin jõusensori konksu külge.
 
-4. Panin kõigepealt pendli väikese amplituudiga võnkuma ja seejärel hakkasin andmeid salvestama vajutades nupule. Katse lõpetamiseks vajutasin sama nuppu ning märkisin üles keskmise võnkeperioodi *Avg* ja võngete arvu *#* tabelisse \@ref(tab:mathematical-pendulum) võnkeperioodi ja võngete arvu lahtrisse.
+3.  Määrasin joonlauaga vedru alumise otsa asendi (ilma raskuseta). Panin selle mõõtmistulemuse (vedru tasakaaluasend $x_{balance}$) kirja.
 
-5. Katset tuli korrata vähemalt kuus korda ja ühe katseseeria korral lasta pendlil sooritada 20 kuni 25 võnget.
+    $x_{balance} := \mathrm{1.04 \times 10^{-1} \times m}$
+    
+```{r}
+    x_balance <- 1.04e-1
+    ```
 
-6. Iga katseseeria korral tuli valida erinev pendlipikkus, see joonlauaga mõõta ja andmed kanda tabelisse \@ref(tab:mathematical-pendulum).
+4. Jõusensori näidu nullimiseks alustasin andmete salvestamisega ning nullisin mõõtetulemuse (see kuvatakse *Digits*-aknas) vajutades jõusensori küljel oleat *Tare*-nuppu. Lõpetasin andmete salvestamise ja kustutasin mõõtetulemused.
 
-Pendli pikkus pidi algselt olema võimalikult suur.
+5. Andmete salvestamise alustamiseks vajutasin nuppu *Start*. Seejärel vajutasin nupule *Keep*. Avanes *Keyboard Sampling*'i aken. Sinna sain sisestada vedru deformatsiooni meetrites. Sisestasin deformatsiooni. Juhul, kui mul vedru otsa polnud raskusi riputatud, pidi see olema *0*. Väärtuse salvestamiseks vajutasin *Enter*, arvuti salvestas samaaegselt jõusensori *F* näidu.
 
-```{r label = "mathematical-pendulum"}
-run <- seq(1, 6)
-l <- c(.517, .475, .442, .422, .392, .363)
-N <- c(21, 20, 21, 21, 25, 23)
-T <- c(1.449396, 1.393948, 1.3444, 1.3174, 1.450781, 1.222832)
-T_squared <- T^2
-k <- T_squared / l
-g <- 4 * pi^2 / k
-mathematical_pendulum <- data.frame(run, l, N, T, T_squared, k, g)
-colnames(mathematical_pendulum) <- c("Nr", "Pendli pikkus $\\frac{l}{\\mathrm{m}}$", "Võngete arv $N$", "Võnkeperiood $\\frac{T}{s}$", "$\\frac{T^2}{\\mathrm{s^2}}$", "$\\frac{k}{\\mathrm{\\frac{s^2}{m}}}$", "$\\frac{g}{\\mathrm{\\frac{m}{s^2}}}$")
+6. Lisasin vedru otsa $100 \cdot g$ raskuse (arvestasin ka raskuse konksu massi). Mõõtsin vedru otsa uue asendi $x_i$. Lasin arvutada erinevuse uue asendi ja tasakaaluasendi vahel $\Delta(x)$ ehk deformatsiooni, kus $\Delta(x) := x_i - x_{balance}$ ning vajutasin taas nuppu *Keep* ning sisestasin arvutisse saadud deformatsiooni väärtuse meetrites. Väärtuse salvestamiseks ja uue jõusensori näidu võtmiseks vajutasin taas klahvile *Enter*. *Entry #2* väärtus ilmus andmeloendisse. Samal ajal täitsin ka tabelit \@ref(tab:determination-of-spring-stiffness).
+
+7. Lisasin vedru otsa veel $100 \cdot g$ (kokku $200 \cdot g$) ning kordasin vedru alumise otsa uue asendi määramist ja deformatsiooni arvutamist ning arvutisse sisestamist. Jätkasin raskuste lisamist $100 \cdot g$ kaupa, kuni olin kokku lisanud $600 \cdot g$. Andmete salvestamise lõpetamiseks vajutasin nuppu *Stop* (punane kastike *Keep*-nupu kõrval).
+
+```{r label = "determination-of-spring-stiffness"}
+m <- c(99.7e-3, 100.9e-3, 99.9e-3, 98.6e-3, 101.2e-3, 101.4e-3)
+
+total_m <- 0
+
+for (index in 1:length(m)) {
+  total_m <- total_m + m[index]
+  m[index] <- total_m
+}
+
+F <- c(-1, -2, -3.1, -3.9, -5, -5.9)
+x_i <- c(.111, .155, .199, .236, .284, .327)
+delta_x <- x_i - x_balance
+determination_of_spring_stiffness <- data.frame(m, F, x_i, delta_x)
+colnames(determination_of_spring_stiffness) <- c("Mass $\\mathrm{\\frac{1}{g}}$", "Jõud $\\frac{F}{\\mathrm{N}}$", "Vedru otsa asend $\\frac{x_i}{\\mathrm{m}}$", "Deformatsioon $\\frac{\\Delta(x)}{m}$")
 
       librarian::shelf("kableExtra")
-print_table(mathematical_pendulum, caption = "Matemaatilise pendli katseandmed", digits = 6) %>% kable_styling(    bootstrap_options = c("striped", "bordered", "condensed", "responsive", "hover"),
-    latex_options = "scale_down",
-    full_width = TRUE
-      )
-
-
-
-```
-Kuigi võisin leida raskuskiirenduse *g* valemist \@ref(eq:length) seose $g := \frac{4 \cdot \pi^2 \times l}{T^2}$ abil ja erinevate *T* ja *l* väärtuste jaoks leida *g* väärtused, neid keskmistades, siis tegelikult ei ole see väga täpne meetod. Nimelt *l*'i ja *T* määramisel tekivad süstemaatilised vead, mis viivad *g* määramise ebatäpseks. Täpsemaks määramiseks kasutasin hoopis *l*'i ja $T^2$'u vahelist lineaarse sõltuvuse regressioonanalüüsi. Selleks võtsin $y := T^2$, $x := l$ ja kasutasin sirge üldvõrrandit \@ref(eq:line):
-
-```{=tex}
-\begin{align}
-y := k \cdot x + b,
-(\#eq:line)
-\end{align}
-```
-
-Asendan valemist \@ref(eq:period-mathematical) *l*'i kordaja valemisse \@ref(eq:line):
-```{=tex}
-\begin{align}
-T^2 := \frac{4 \cdot \pi^2}{g} \cdot l + b,
-(\#eq:period-squared)
-\end{align}
-```
-
-Seose \@ref(eq:period-squared) põhjal peaks $b := 0$, kuid mõõtmised ja andmeanalüüs näitavad, et reaalselt $b \ne 0$, mis on tingitud üldiselt süstemaatilisest mõõteveast.
-```{r label = "g"}
-g <- 9.8
-```
-
-Mõõtemääramatus:
-
-```{=tex}
-\begin{equation}
-\Delta(x) := 2.57 \cdot \sqrt{\frac{\sum_{i := 1}^n{(\overline{x} - x_i)^2}}{n \cdot (n - 1)}}
-(\#eq:delta_g)
-\end{equation}
-```
-
-### Praktiline osa 2
-
-#### Füüsikalise pendli võnkeperiood ja inertsimoment
-
-1. Pöörasin fotovärava füüsikalise pendli otsa alla.
-
-2. Panin pendli väikese amplituudiga võnkuma ning mõõtsin võnkeperioodi ühe pendlipikkuse korral sooritades selleks kuus katseseeriat. Ühes seerias pidi olema 20 kuni 25 võnget.
-
-3. Täitsin tabeli \@ref(tab:physical-pendulum).
-
-```{r label = "physical-pendulum"}
-run <- 7:12
-T_r <- c(1.202863, 1.202549, 1.202313, 1.202112, 1.201999, 1.201953)
-N <- c(20, 21, 20, 20, 21, 21)
-physical_pendulum <- data.frame(run, T_r, N)
-colnames(physical_pendulum) <- c("Katse nr", "Võnkeperiood $\\frac{T_f}{\\mathrm{s}}$", "Võngete arv $N$")
-      librarian::shelf("kableExtra")
-print_table(physical_pendulum, caption = "Füüsikalise pendli katseandmed", digits = 6) %>% kable_styling(    bootstrap_options = c("striped", "bordered", "condensed", "responsive", "hover"),
+print_table(determination_of_spring_stiffness, caption = "Vedru jälkuse määramine", digits = 6) %>% kable_styling(    bootstrap_options = c("striped", "bordered", "condensed", "responsive", "hover"),
     latex_options = "scale_down",
     full_width = TRUE
       )
 ```
 
-#### Inertsimoment pöörlemistelje suhtes ja teoreetiline pendli periood
+## Praktiline osa 2: Võnkeperioodi määramine ja võnkliikumise uurimine
 
-Steineri lause kohaselt on keha intertsimoment *I* suvalise telje suhtes võrdne läbi raskuskeskme mineva paralleelse telje suhtes võetud inertsimomendiga $I_c$, millele on liidetud keha massi korrutis keha raskuskeskme kauguse *d* ruuduga pöörlemisteljest:
+Selles laboratoorse töö osas jälgis liikumissensor vedru külge riputatud raskuse liikumist. Programm *DataStudio* salvestas liikumist iseloomustavad suurused (asend - kaugus sensorist; kiirus liikumise jooksul) ja kuvas võnkuva raskuse asendi ning kiiruse ekraanile. Määrati võnkeperiood ja saadud tulemust võrreldi teoreetiliselt saadud väärtusega:
 
+1. Eraldasin jõusensori pistiku liidese küljest. Ühendasin liikumissensori pistiku liidesesse jõusensori pistiku kohale. Avasin *DataStudio* faili **harmooniline vonkumine 2.ds**.
 
-```{=tex}
-\begin{align}
-I := I_c + m \cdot d^2
-(\#eq:moment-of-inertia)
-\end{align}
-```
+2. Kinnitasin vedru statiivi külge nii, et see sai vabalt üles-alla liikuda. Riputasin vedru otsa raskused, sobivaim oli kasutada vedru otsas olevaid raskusi kogumassiga 400 kuni 600 grammi (joonis \@ref(fig:harmonic-oscillation)).
 
-Seega taandub Steineri lause suvalise telje suhtes inertsimomendi arvutamisele keha raskuskeset läbiva telje suhtes.
+3. Panin liikumissensori põrandale täpselt vedru alla. Vedru otsa ja musta liikumisseonsori vahele pidi jääma vähemalt $\mathrm{40 \cdot cm}$. Sinise sensori korral seda piirangut ei ole.
 
-minu katses on kasutatud ühtlast varba pikkusega *L*, mille teoreetiliselt tuletatud inertsimoment raskuskeset läbiva telje suhtes on $I_c := \frac{1}{12} \cdot m \cdot L^2$. Asendades selle valemisse \@ref(eq:moment-of-inertia), saan:
+4. Mõõtsin joolauaga vedrupendli alumise otsa kauguse liikumissensorist, kui pendel ei võnkunud (tasakaaluasend $x_{tas}'$) või võtsin liikumissensori lugemi, kui pendel ei liikunud, vajutades korraks nuppu *Start*, ja seejärel katkestasin katse vajutades nupule *Stop*.
 
+5. Tõmbasin raksust umbes $\mathrm{20 \cdot cm}$ allapoole ja lasksin lahti. Lasksin sellel mõned korrad võnkuda, nii et soovimatu võbelemine sumbuks ja jääks järgi korrapärane võnkumine. Kontrollisin, et raskus poleks madalaimas asendis liikumissensorile lähemal kui $\mathrm{40 \cdot cm}$ (proovisalvestusgraafikul n-ö nagu lõigatakse võnkumiste äärmised asendid ära, jääb kandiline tipp).
 
-```{=tex}
-\begin{align}
-I := \frac{1}{12} \cdot m \cdot L^2 + m \cdot d^2 = m \cdot (\frac{L^2}{12} + d^2)
-(\#eq:moment-of-inertia-for-pendulum)
-\end{align}
-```
-
-Pendli pikkus:
-
-$$L := \mathrm{58.9 \times cm \frac{10^{-2} \times m}{1 \times cm} = 5.89 \times 10^{-1} \times m}$$.
-```{r label = "l"}
-L <- 58.9e-2
-```
-
-Raskuskeskme kaugus pöörlemisteljest:
-
-$$d := \mathrm{22.8 \times cm \frac{10^{-2} \times m}{1 \times cm} = 2.28 \times 10^{-1} \times m}$$
-```{r label = "d"}
-d <- 22.8e-2
-```
-
-Pendelkeha mass:
-
-$$m := \mathrm{0.3667 \times kg = 3.667 \times 10^{-1} \times kg}$$
-```{r label = "m"}
-m <- .3667
-```
-
-Suhteline erinevus:
-
-```{=tex}
-\begin{align}
-R := \frac{|f - r|}{f}
-(\#eq:relative-difference)
-\end{align}
-```
+6. Andmete salvestamise alustamiseks vajutasin nuppu *Start*. Võnkuva raskuse asend ja kiirus ilmusid graafikule. Jätkasin salvestamist umbes $\mathrm{10 \cdot s}$. Andmete salvestamise lõpetamiseks vajutasin nuppu *Stop*. Aknas *Experiment Setup* ilmus andmelehele *Run #1*. Salvestasin faili koopia käsuga *Save As* enda nimele edasiseks analüüsimiseks.

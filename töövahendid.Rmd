@@ -1,11 +1,19 @@
 # Töö vahendid
 
-1.  Katseseade matemaatilise ja füüsikalise pendliga,
+1.  *PASCO Science Workshop 500*, *700* või *750 (SW)* või *xPlorer GLX*'i liides,
 
-2. millimeeterjaotusega joonlaud,
+2. liikumissensor (*Motion Sensor*),
 
-3. fotovärav,
+3. jõusensor (*Force Sensor*),
 
-4. digitaaladapter,
+4. raskused riputamiseks,
 
-5. *PASCO xPlorer GLX*.
+5. joonlaud,
+
+6. kaal,
+
+7. varras,
+
+8. statiiv,
+
+9. vedru.
