@@ -2,34 +2,572 @@
 
 ## Praktiline osa 1
 
-1. Aktiveerisin graafiku. Selleks, et andmed sobituksid üle graafikuakna, tuli valida akna teguiribalt vasakpoolseim ikoon ning seda vajutada. Nii nägin graafikult suuremalt kogutud andmeid ning ka neile sobitatud vastavat sirget.
+1.  Aktiveerisin graafiku. Selleks, et andmed sobituksid üle
+    graafikuakna, tuli valida akna tegumiribalt vasakpoolseim ikoon ning
+    seda vajutada. Nii nägin graafikult suuremalt kogutud andmeid ning
+    ka neile sobitatud vastavat sirget.
 
-2.  Uurisin deformatsiooni-jõu graafikut. Jõu ja deformatsiooni vahelist seost kirjeldab lineaarne sõltuvus (\@ref(eq:force)). Seega, sobitades antud graafikuosa regressioonisirgega (üldvalem $y := k \cdot x + b$, kus *y* on vertikaalteljel olev suurus - mul vastas see jõule *F* - ning *x* horisontaalteljel olev suurus - mul vastas see deformatsioonile *x*) sai leida sirge tõusu (*slope*), mis ongi jälkus *k*. Kuivõrd sirge tõus on negatiivne, siis jälkuse väärtus ise on absoluutväärtus tõusust *k*.
+2.  Uurisin deformatsiooni-jõu graafikut. Jõu ja deformatsiooni vahelist
+    seost kirjeldab lineaarne sõltuvus \@ref(eq:force). Seega,
+    sobitades antud graafikuosa regressioonisirgega (üldvalem
+    $y := k \cdot x + b$, kus *y* on vertikaalteljel olev suurus - mul
+    vastas see jõule *F* - ning *x* horisontaalteljel olev suurus - mul
+    vastas see deformatsioonile *x*) sai leida sirge tõusu (*slope*),
+    mis ongi jälkus *k* - joonis \@ref(fig:k). Kuivõrd sirge tõus on negatiivne, siis jälkuse
+    väärtus ise on absoluutväärtus tõusust *k*.
 
     ```{r label = "k", fig.cap="Võnkeperioodi ruudu sõltuvus pendli pikkusest"}
-librarian::shelf(
-  ggplot2, latex2exp,
+    librarian::shelf(
+      ggplot2, latex2exp,
                  ggpubr # for stat_regline_equation
-  )
-ggplot(data = determination_of_spring_stiffness, aes(x = delta_x, y = F)) + geom_point() + labs(x = TeX("$\\frac{\\Delta(x)}{m}$"), y = TeX("$\\frac{F}{N}$")) +
-  geom_smooth() +
-  stat_regline_equation()
+      )
+    ggplot(data = determination_of_spring_stiffness, aes(x = delta_x, y = F)) + geom_point() + labs(x = TeX("$\\frac{\\Delta(x)}{m}$"), y = TeX("$\\frac{F}{N}$")) +
+      geom_smooth(formula = "y ~ x", method = "loess", se = FALSE) +
+      stat_regline_equation()
     delta_x_F_lm <- lm(F ~ delta_x, data = determination_of_spring_stiffness)
-summary_delta_x_F_lm <- summary(delta_x_F_lm)
-abs_k <- abs(summary_delta_x_F_lm$coefficients["delta_x", "Estimate"])
-
-
+    summary_delta_x_F_lm <- summary(delta_x_F_lm)
+    k <- summary_delta_x_F_lm$coefficients["delta_x", "Estimate"]
+    abs_k <- abs(k)
     ```
 
-    **Vedru jälkus:** $|k| := \mathrm{`r abs_k` \times \frac{kg}{s^2}}$
+    **Vedru jälkus:**
+    $|k| := \mathrm{`r signif(abs_k, digits = 3)` \times \frac{kg}{s^2}}$
 
-3. Esitasin protokollis kas *DataStudio*s kuvatud deformatsiooni-jõu graafik või koostasin vastavalt tabelile \@ref(tab:determination-of-spring-stiffness) ise deformatsiooni-jõu graafiku.
+3.  Koostasin vastavalt tabelile
+    \@ref(tab:determination-of-spring-stiffness) ise deformatsiooni-jõu
+    graafiku, mis on joonisel \@ref(fig:k).
 
-4.  Kontrollisin, kas Hooke'i seadus kehtib, st kui lähedal on deformatsiooni ja jõu graafik lineaarsele sõltuvusele. Selleks arvutasin saadud deformatsiooni-jõu graafikule Pearsoni korrelatsiooni kordaja $R_p$. Tegin järeldused katse õnnestumise kohta.
+4.  Kontrollisin, kas Hooke'i seadus kehtib, st kui lähedal on
+    deformatsiooni ja jõu graafik lineaarsele sõltuvusele. Selleks
+    arvutasin saadud deformatsiooni-jõu graafikule Pearsoni
+    korrelatsiooni kordaja $R_p$. Tegin järeldused katse õnnestumise
+    kohta.
 
     ```{r label = "correlation"}
     R_p <- cor(F, delta_x, method = "pearson")
     ```
 
-    $R_p := `r R_p`$
+    $R_p := `r signif(R_p, digits = 4)`$
+
+    Kuna $R_p$ väärtus on ülilähedal ühele, siis võib väita, et
+    deformatsioon ja jõud omavahel korreleeruvad ja eksperiment
+    õnnestus.
+
+## Praktiline osa 2
+
+### Võnkeperioodi määramine
+
+Võnkuva vedru andmed salvestati mõõteseadmega ja sellest ma eksportisin
+need andmed, mille graafik on näha joonisel
+\@ref(fig:oscillation-of-spring-pendulum).
+
+```{r label = "oscillation-of-spring-pendulum", fig.cap="Vedrupendli võnkumise graafik, millel on kujutatud vedru otsa riputatud asjanduse alumise osa kauguse muutumine sensorist ajas"}
+librarian::shelf("data.table")
+oscillations <- fread("ExportedData.csv")
+number_of_rows <- length(oscillations$`Date and Time Run 3`)
+selected_oscillations <- oscillations[-c(1, 2, number_of_rows - 2, number_of_rows - 1, number_of_rows)]
+x_tas <- selected_oscillations$`Position (m) Run 1`[1]
+
+librarian::shelf(
+  ggplot2, latex2exp)
+
+ggplot(data = selected_oscillations, aes(x = `Time (s) Run 3`, y = `Position (m) Run 3`)) + geom_point() +
+  labs(x = TeX("\\frac{t}{s}"), y = TeX("\\frac{x}{m}"))
+```
+
+Vedru otsas rippuva asjanduse alumise serva kaugus sensorist tasakaalu positsioonis oli $`r x_tas` \mathrm{\times m}$.
+
+Vedrupendli võnkeperiood on ajavahemik iga kahe korra järel, mil vedru
+otsa riputatud asjandus asub samalt poolt liikununa samas kohas. Et see
+võib iga kord olla pisut erinev, lasen arvutada keskmise. Selleks on
+vaja teada kõiki selliseid ajavahemikke kahe hetke vahel, mil
+vedrupendli otsa riputatud asjandus asub samas kohas. See koht võib olla
+nt kas kõige ülemine või kõige alumine asukoht. Graafiku järgi saaks ka
+käsitsi vastavad ajahetked välja selgitada, ent ma tahtsin saada täpsema
+tulemuse ja lasin need ajahetked välja arvutada. Ajahetked ja
+ajavahemikud on esitatud tabelis
+\@ref(tab:periods-of-position).
+
+```{r label = "calculation-of-critical-places"}
+time_position <- na.omit(subset(selected_oscillations, select = c("Time (s) Run 3", "Position (m) Run 3", "Velocity (m/s) Run 3","Acceleration (m/s²) Run 3")))
+
+calculate_critical_places <- function(data, x_balance) {
+  maxima <- c()
+  minima <- c()
+  maximum.value <- -Inf
+  minimum.value <- Inf
+  maximum.index <- c()
+  maximum.index.value <- c()
+  minimum.index <- c()
+  minimum.index.value <- c()
+  number_of_measurements <- length(data)
+  positive <- FALSE
+  up <- FALSE
+  last_index_of_minimum <- 0
+  last_index_of_maximum <- 0
+  previous <- data[1]
+  value_of_local_extremum <- c()
+  designation_of_local_extremum <- c()
+
+  for (index in 2:number_of_measurements) {
+  
+    if (data[index] < -.1 || data[index] > .1) {
+
+      if (data[index] > x_balance) {
+        positive <- TRUE
+      }
+
+      if (data[index] < x_balance) {
+        positive <- FALSE
+      }
     
+      if (data[index] > previous) {
+        up <- TRUE
+      }
+    
+      if (data[index] < previous) {
+        up <- FALSE
+      }
+  
+      if (positive && data[index] > previous) {
+
+        if (minimum.value < Inf) {
+          mean_of_locations_around <- mean(minimum.index[match(minimum.index.value[last_index_of_minimum], minimum.index.value):last_index_of_minimum])
+          minima <- c(minima, mean_of_locations_around)
+          value_of_local_extremum <- c(value_of_local_extremum, mean_of_locations_around)
+          designation_of_local_extremum <- c(designation_of_local_extremum, "local minimum")
+          minimum.value <- Inf
+          minimum.index <- c()
+          minimum.index.value <- c()
+          last_index_of_minimum <- 0
+        }
+        
+        if (data[index] > maximum.value) {
+          maximum.value <- data[index]
+          
+          if (length(maximum.index) > 0 && maximum.index[1] < maximum.value) {
+            maximum.index <- c(index)
+            maximum.index.value <- c(data[index])
+          } else {
+            maximum.index <- c(maximum.index, index)
+            maximum.index.value <- c(maximum.index.value, data[index])
+          }
+          
+          last_index_of_maximum <- length(maximum.index)
+        }
+  
+      } else if (!positive && data[index] < previous) {
+      
+        if (maximum.value > -Inf) {
+          mean_of_locations_around <- mean(maximum.index[match(maximum.index.value[last_index_of_maximum], maximum.index.value):last_index_of_maximum])
+          maxima <- c(maxima, mean_of_locations_around)
+          value_of_local_extremum <- c(value_of_local_extremum, mean_of_locations_around)
+          designation_of_local_extremum <- c(designation_of_local_extremum, "local maximum")
+          maximum.value <- -Inf
+          maximum.index <- c()
+          maximum.index.value <- c()
+          last_index_of_maximum <- 0
+        }
+        
+        if (data[index] < minimum.value) {
+          minimum.value <- data[index]
+          
+          if (length(minimum.index) > 0 && minimum.index[1] > minimum.value) {
+            minimum.index <- c(index)
+            minimum.index.value <- c(data[index])
+          } else {
+            minimum.index <- c(minimum.index, index)
+            minimum.index.value <- c(minimum.index.value, data[index])
+          }
+          
+          last_index_of_minimum <- length(minimum.index)
+        }
+        
+      } else if (data[index] == previous) {
+  
+        if (positive && up) {
+          maximum.index <- c(maximum.index, index)
+          maximum.index.value <- c(maximum.index.value, data[index])
+          
+          if (data[index] >= maximum.value) {
+            last_index_of_maximum <- length(maximum.index)
+          }
+
+        } else if (!positive && !up) {
+          minimum.index <- c(minimum.index, index)
+          minimum.index.value <- c(minimum.index.value, data[index])
+          
+          if (data[index] <= minimum.value) {
+            last_index_of_minimum <- length(minimum.index)
+          }
+
+        } else if (!positive && up) {
+          minimum.index <- c(minimum.index, index)
+          minimum.index.value <- c(minimum.index.value, data[index])
+        } else {
+          maximum.index <- c(maximum.index, index)
+          maximum.index.value <- c(maximum.index.value, data[index])
+        }
+    
+      } else {
+          
+        if (positive) {
+          maximum.index <- c(maximum.index, index)
+          maximum.index.value <- c(maximum.index.value, data[index])
+        } else {
+          minimum.index <- c(minimum.index, index)
+          minimum.index.value <- c(minimum.index.value, data[index])
+        }
+        
+      }
+    
+      previous <- data[index]
+    }
+    
+  }
+
+  value_of_critical_place <- c()
+  designation_of_critical_place <- c()
+
+  for (index in 1:length(value_of_local_extremum)) {
+    
+    if (!is.na(value_of_local_extremum[index + 1])) {
+      value_of_critical_place <- c(value_of_critical_place, value_of_local_extremum[index])
+      designation_of_critical_place <- c(designation_of_critical_place, designation_of_local_extremum[index])
+      value_of_critical_place <- c(value_of_critical_place, (value_of_local_extremum[index] + value_of_local_extremum[index + 1]) / 2)
+      designation_of_critical_place <- c(designation_of_critical_place, "inflection")
+    }
+    
+  }
+  
+  value_of_critical_place <- c(value_of_critical_place, value_of_local_extremum[index])
+  designation_of_critical_place <- c(designation_of_critical_place, designation_of_local_extremum[index])
+  number_of_maxima <- length(maxima)
+  number_of_minima <- length(minima)
+
+  if ((number_of_maxima - number_of_minima) != 0) {
+    print((number_of_maxima - number_of_minima))
+    value_of_critical_place <- head(value_of_critical_place, -1)
+    designation_of_critical_place <- head(designation_of_critical_place, -1)
+  }
+
+  return(data.frame(value_of_critical_place, designation_of_critical_place))
+}
+```
+
+```{r label = "critical-places"}
+critical_places <- calculate_critical_places(time_position$`Position (m) Run 3`, selected_oscillations$`Position (m) Run 1`[1])
+minima <- subset(critical_places, (critical_places$designation_of_critical_place == "local minimum"), select = "value_of_critical_place")$value_of_critical_place
+maxima <- subset(critical_places, (critical_places$designation_of_critical_place == "local maximum"), select = "value_of_critical_place")$value_of_critical_place
+```
+
+```{r label = "periods-of-position"}
+periods <- diff(time_position$`Time (s) Run 3`[maxima])
+oscillation_period_of_spring_pendulum <- data.frame(time_position$`Time (s) Run 3`[maxima], c("", periods))
+colnames(oscillation_period_of_spring_pendulum) <- c("Aeg $\\mathrm{\\frac{1}{s}}$", "Periood $\\frac{1}{\\mathrm{s}}$")
+
+librarian::shelf("kableExtra")
+
+print_table(oscillation_period_of_spring_pendulum, caption = "Vedrupendli võnkeperiood", digits = 3)
+
+```
+
+Keskmise perioodi kestuse lasin välja arvutada:
+
+```{r label = "mean-period"}
+mean_period <- mean(periods)
+```
+
+Keskmine periood on $`r signif(mean_period, digits = 3)` \times \mathrm{s}$.
+
+Usaldusintervalli (reegel \@ref(eq:confidence-interval)) väljaselgitamiseks
+lasen arvutada mõõtemääramatuse:
+
+```{r label = "measurement-uncertainty"}
+librarian::shelf(distributions3)
+number_of_measurements <- length(periods)
+df <- number_of_measurements - 2
+U <- -quantile(StudentsT(df = df), (1 - .95) / 2) * sqrt(sum((periods - mean_period)^2) / ((number_of_measurements - 1) * (df)))
+```
+
+Mõõtemääramatus on $`r signif(U, digits = 3)` \times \mathrm{s}$. 95% tõenäosusega asub
+võnkeperioodide tõeline aritmeetiline keskväärtus vahemikus:
+
+$$T := (`r signif(mean_period, digits = 3)` \pm `r signif(U, digits = 3)`) \times \mathrm{s}.$$
+
+Järgnevalt lasin arvutada võnkeperioodi teoreetilise väärtuse kasutades
+valemit \@ref(eq:period) leheküljel $\pageref{eq:period}$:
+
+```{r label = "period-fictive"}
+T_f <- 2 * pi * sqrt(m_5 / abs_k)
+```
+
+Võnkeperioodi teoreetiline väärtus on $`r signif(T_f, digits = 3)` \times \mathrm{s}$.
+
+### Võnkliikumise uurimine
+
+Avaldan valemist \@ref(eq:deviation) algfaasi:
+```{=tex}
+\begin{align}
+\phi_0 := arcsin(\frac{x}{x_{max}}) - \frac{2 \cdot \pi \cdot t}{T}.
+(\#eq:phi-0)
+\end{align}
+```
+
+Katsetamine nt kasvõi avaldisega $sin(2x + 1)$ näitas, et selle valemiga saaks küll kujult õige, ent liiga nihkes graafiku. Seetõttu ma määran uue nullpunkti ja teen seda andmestiku keskel, et katvus oleks piisav. Katsetasin tundidekaupa tahvlil ja GeoGebras ning jõudsin lõpuks järeldusele, et eri kohti nulliks määrates tulebki graafik mingi teise koha graafiku suhtes veidi nihkes, vahel ka mitte, igatahes mitte nii kohutavalt nihkes kui selle valemiga [@geogebra]. Nii et teen valemisse \@ref(eq:phi-0) veidi muudatusi. Kui $t := 0$, siis kukub ära teine liidetav. Oluline osa on põhivalemis \@ref(eq:deviation) leheküljel $\pageref{eq:deviation}$ siinuse sisendi vabaliige, sest see ongi algfaas, mida ma tahan hakata nüüd ka selle raporti sisse siin arvutada laskma. Lisaks, kuna arkussiinus väljastab lõputult, kuid kuni kaht perioodiliselt erinevat väärtust, katsetasin ja leidsin, et minu eksperimendi puhul tuleb määrata siinusvõrrandi lahendivalemis \@ref(eq:sine-equation): $n := 1$:
+```{=tex}
+\begin{align}
+\alpha := (-1)^n \cdot arcsin(a) + n \cdot \pi.
+(\#eq:sine-equation)
+\end{align}
+```
+
+Kui valida nullkohaks tasakaalupositsioon, siis piisab, kui $n := 0$ ja siis pole vaja ka piiga möllata. Ja just nii ma teengi:
+```{=tex}
+\begin{align}
+\phi :&= \frac{2 \cdot \pi \cdot (t - t_0)}{T} + arcsin(\frac{x - x_{tas}}{x_{max}})\\
+&= \frac{2 \cdot \pi \cdot t}{T} -  \frac{2 \cdot \pi \cdot t_0}{T} + arcsin(\frac{x - x_{tas}}{x_{max}})\\
+&= \frac{2 \cdot \pi \cdot t}{T} + \frac{T \cdot arcsin(\frac{x - x_{tas}}{x_{max}}) - 2 \cdot \pi \cdot t_0}{T}
+(\#eq:phi)
+\end{align}
+```
+
+Valemis \@ref(eq:phi) on viimane üksliige algfaas:
+
+```{=tex}
+\begin{align}
+\phi_0 :&= \frac{T \cdot arcsin(\frac{x - x_{tas}}{x_{max}}) - 2 \cdot \pi \cdot t_0}{T}
+(\#eq:phi-0-as-last-single-term-in-phi)
+\end{align}
+```
+
+Kui määrata algfaasi arvutamise ajahetk nulliks, siis on algfraasi valem selline:
+
+```{=tex}
+\begin{align}
+\phi_0(shifted) :&= arcsin(\frac{x - x_{tas}}{x_{max}})
+(\#eq:phi-0-if-t-0-is-0)
+\end{align}
+```
+
+Lasen arvutada algkoordinaadi, vastava ajahetke, amplituudi, sageduse ning algfaasi:
+
+```{r label = "x0-t", results='asis'}
+inflections <- subset(critical_places, critical_places$designation_of_critical_place == "inflection", select = "value_of_critical_place")$value_of_critical_place
+t_0 <- time_position$`Time (s) Run 3`[1]
+x_0 <- time_position$`Position (m) Run 3`[1]
+x_max <- abs(mean((time_position$`Position (m) Run 3`[maxima]  - time_position$`Position (m) Run 3`[minima]) / 2))
+f <- 1 / mean_period
+middle_position <- (1 + length(time_position$`Position (m) Run 3`)) / 2
+x_0_for_phi_0 <- time_position$`Position (m) Run 3`[middle_position]
+t_0_for_phi_0 <- time_position$`Time (s) Run 3`[middle_position]
+phi_0 <- asin((x_0_for_phi_0 - x_tas) / x_max)
+```
+
+Algkoordinaat on
+$`r x_0` \times \mathrm{m}$ ja sellele vastav ajahetk oli
+$`r t_0` \times \mathrm{s}$. Amplituud on $`r x_max` \times \mathrm{m}$, sagedus
+$`r signif(f, digits = 3)` \times \mathrm{Hz}$, algfaas on $`r signif(phi_0, digits = 2)` \cdot \mathrm{rad}$. Algajahetk, millest alates ma algfaasi lasin arvutada, oli $`r t_0_for_phi_0` \times \mathrm{s}$ ja selle ma määrasin nulliks. Sellele vastav positsioon oli $`r x_0_for_phi_0` \times \mathrm{m}$. Nüüd tuleb teha tagasiarvutus ehk arvutada algfaas ümber tegelikule ajahetkele. Nihutatud graafiku, mille puhul on lähtehetk määratud nulliks, algfaas on ka null. Seega on tegelik algfaas arvutatav valemiga:
+
+```{=tex}
+\begin{align}
+\phi_0(unshifted) :&= -\frac{2 \cdot \pi \cdot t_0}{T}
+(\#eq:phi-0-unshifted)
+\end{align}
+```
+
+Tegelik algfaas on seega
+
+```{r label = "phi-0-unshifted"}
+phi_0_unshifted <- -(2 * pi * t_0_for_phi_0) / mean_period
+```
+
+$`r signif(phi_0_unshifted, digits = 2)` \cdot \mathrm{rad}$.
+
+Joonisel \@ref(fig:time-velocity) on näha, kuidas võnkumise kiirus ajast
+sõltus.
+
+```{r label = "time-velocity", fig.cap="Võnkumise kiiruse sõltuvust ajast"}
+ggplot(data = selected_oscillations, aes(x = `Time (s) Run 3`, y = `Velocity (m/s) Run 3`)) + geom_point() +
+  labs(x = TeX("\\frac{t}{s}"), y = TeX("\\frac{v}{\\frac{m}{s}}"))
+
+```
+
+```{r label = "start-velocity"}
+v_0 <- time_position$`Velocity (m/s) Run 3`[1]
+```
+
+Eksporditud andmete põhjal on vedru otsas rippuva asjanduse kiirus ehk võnkumiste algkiirus $`r v_0` \times \mathrm{\frac{m}{s}}$. Kiiruse muutumise
+perioodi ja sageduse arvutamiseks on vaja taas arvutada maksimumid ja
+miinimumid, mille lasen paigutada tabelisse \@ref(tab:velocity-period-frequency):
+
+```{r label = "velocity-period-frequency"}
+
+critical_places_of_velocity <- calculate_critical_places(time_position$`Velocity (m/s) Run 3`, 0)
+minima_of_velocity <- subset(critical_places_of_velocity, (critical_places_of_velocity$designation_of_critical_place == "local minimum"), select = "value_of_critical_place")$value_of_critical_place
+maxima_of_velocity <- subset(critical_places_of_velocity, (critical_places_of_velocity$designation_of_critical_place == "local maximum"), select = "value_of_critical_place")$value_of_critical_place
+periods <- diff(time_position$`Time (s) Run 3`[maxima_of_velocity])
+
+oscillation_period_of_spring_pendulum <- data.frame(time_position$`Time (s) Run 3`[maxima], c("", periods))
+colnames(oscillation_period_of_spring_pendulum) <- c("Aeg $\\mathrm{\\frac{1}{s}}$", "Periood $\\frac{1}{\\mathrm{s}}$")
+
+librarian::shelf("kableExtra")
+print_table(oscillation_period_of_spring_pendulum, caption = "Vedrupendli võnkumise kiiruse muutumise periood", digits = 3)
+
+```
+
+Kiiruse muutumise keskmise perioodi kestuse lasin välja arvutada:
+
+```{r label = "mean-period-of-delta-velocity"}
+mean_period_of_delta_velocity <- mean(periods)
+```
+
+Kiiruse muutumise keskmine periood on $`r signif(mean_period_of_delta_velocity, digits = 3)` \times \mathrm{s}$.
+
+Lasen arvutada algkoordinaadi, vastava ajahetke, amplituudi, ja sageduse:
+
+```{r label = "v0_t0_vmax_vf", results='asis'}
+v_max <- abs(mean((time_position$`Velocity (m/s) Run 3`[maxima_of_velocity]  - time_position$`Velocity (m/s) Run 3`[minima_of_velocity]) / 2))
+f_v <- 1 / mean_period_of_delta_velocity
+v_0_for_phi_0 <- time_position$`Velocity (m/s) Run 3`[middle_position]
+```
+.
+
+Algkiirus on
+$`r v_0` \times \mathrm{\frac{m}{s}}$ ja sellele vastav ajahetk oli
+$`r t_0` \times \mathrm{s}$. Amplituud on $`r v_max` \times \mathrm{\frac{m}{s}}$, sagedus
+$`r signif(f_v, digits = 3)` \times \mathrm{Hz}$. Algajahetk, millest alates ma algfaasi lasin arvutada, oli $`r t_0_for_phi_0` \times \mathrm{s}$. Sellele vastav kiirus oli $`r v_0_for_phi_0` \times \mathrm{\frac{m}{s}}$. Tegelik algfaas on seega vastavalt valemile \@ref(eq:phi-0-as-last-single-term-in-phi) leheküljel $\pageref{eq:phi-0-as-last-single-term-in-phi}$
+
+```{r label = "phi-0-v"}
+
+phi_0_v <- (mean_period_of_delta_velocity * asin((v_0_for_phi_0 - 0) / v_max) - 2 * pi * t_0_for_phi_0) / mean_period_of_delta_velocity
+```
+
+$`r signif(phi_0_v, digits = 2)` \cdot \mathrm{rad}$.
+
+Lasen arvutada aeg-asukoht-graafiku ja aeg-kiirus-graafiku faasinihke:
+
+```{r label = "phase-shift"}
+delta_phi <- phi_0_v - phi_0_unshifted
+```
+
+ja selleks on $`r signif(delta_phi, digits = 2)` \times \mathrm{rad}$.
+
+Ordinaadi ehk asukoha/kiiruse valem hälbe valemi \@ref(eq:deviation) leheküljel $\pageref{eq:deviation}$ põhjal:
+
+```{=tex}
+\begin{align}
+y_r := y_{max} \cdot sin(\frac{2 \cdot \pi \cdot t}{T} + \phi_0) + y_{balance},
+(\#eq:ordinate)
+\end{align}
+```
+
+.
+
+Faasinihke võrra on kumbki graafik üksteise suhtes nihkes. Näeme seda joonisel \@ref(fig:both-lines).
+
+```{r label = "both-lines", fig.cap=paste("Vedru otsas rippuva asjanduse alumise serva asukoha (üleval) ja kiiruse (all) sõltuvus ajast: Vertikaalsed jooned tähistavad vedru otsa riputatud asjanduse alumise serva asukohta tasakaalupositsioonis (vasakul) ja ülemises tippasukohas (paremal). Tasakaalupositsioonis on asukoha faas $", signif(phi_x_balance_1, digits = 3), "\\mathrm{\\times rad}\\text{ (\\ang{", signif(phi_x_balance_1_in_deg, digits = 4) ,"})}$, kiiruse muutumise faas $", signif(phi_v_balance_1, digits = 3), "\\mathrm{\\times rad}\\text{ (\\ang{", signif(phi_v_balance_1_in_deg, digits = 4) ,"})}$.  Ülemises asukohas on asukoha faas $", signif(phi_x_top_1, digits = 3), "\\mathrm{\\times rad}\\text{ (\\ang{", signif(phi_x_top_1_in_deg, digits = 4) ,"})}$, kiiruse muutumise faas $", signif(phi_v_top_1, digits = 3), "\\mathrm{\\times rad}\\text{ (\\ang{", signif(phi_v_top_1_in_deg, digits = 4) ,"})}$.")}
+
+calculate_phase <- function(t, T, phi_0) {
+  return(2 * pi * t / T + phi_0)
+}
+
+convert_from_rad_to_deg <- function(rad) {
+  return(rad * 180 / pi)
+}
+
+phi_x_balance_1 <- calculate_phase(t = time_position$`Time (s) Run 3`[inflections[1]], T = mean_period, phi_0 = phi_0_unshifted)
+phi_x_balance_1_in_deg <- convert_from_rad_to_deg(phi_x_balance_1)
+phi_v_balance_1 <- calculate_phase(t = time_position$`Time (s) Run 3`[inflections[1]], T = mean_period_of_delta_velocity, phi_0 = phi_0_v)
+phi_v_balance_1_in_deg <- convert_from_rad_to_deg(phi_v_balance_1)
+phi_x_top_1 <- calculate_phase(t = time_position$`Time (s) Run 3`[maxima[1]], T = mean_period, phi_0_unshifted)
+phi_x_top_1_in_deg <- convert_from_rad_to_deg(rad = phi_x_top_1)
+phi_v_top_1 <- calculate_phase(t = time_position$`Time (s) Run 3`[maxima[1]], T = mean_period_of_delta_velocity, phi_0 = phi_0_v)
+phi_v_top_1_in_deg <- convert_from_rad_to_deg(rad = phi_v_top_1)
+
+calculate_x <- function(t) {
+  return(x_max * sin(2 / mean_period * pi * t + phi_0_unshifted) + x_tas)
+}
+
+x_0_remade <- calculate_x(t_0)
+x_0_5 <- calculate_x(5)
+print(inflections)
+ggplot(data = selected_oscillations, aes(x = `Time (s) Run 3`)) +
+  geom_point(aes(y = `Position (m) Run 3`)) +
+  geom_point(aes(y = `Velocity (m/s) Run 3`)) +
+  geom_point(aes(x = t_0, y = x_0_remade, color = "algasukoht")) +
+  geom_point(aes(x = 5, y = x_0_5, color = "viienda sekundi lõpus")) +
+  scale_color_manual(values = c("algasukoht" = "red", "viienda sekundi lõpus" = "green")) +
+  scale_x_continuous(
+    breaks = seq(signif(time_position$`Time (s) Run 3`[maxima[1]], digits = 3), signif(time_position$`Time (s) Run 3`[maxima[length(maxima)]], digits = 3), signif(1.25 * mean_period_of_delta_velocity, digits = 3)),
+    sec.axis = sec_axis(~. * pi * 2 / mean_period, name = TeX("\\frac{\\phi}{rad}"))
+  ) +
+  scale_y_continuous(
+
+    # Features of the first axis
+    name = TeX("\\frac{x}{m}"),
+
+    # Add a second axis and specify its features
+    sec.axis = sec_axis(~., name = TeX("\\frac{v}{\\frac{m}{s}}"))
+  ) +
+  geom_vline(xintercept = time_position$`Time (s) Run 3`[inflections[1]] ) +
+  geom_vline(xintercept = time_position$`Time (s) Run 3`[maxima[1]]) +
+  labs(x = TeX("\\frac{t}{s}")) +
+  theme(legend.position = "top")
+
+```
+
+
+Kummagi graafiku kuju on sama. Tasakaaluasend on abstsisstelg. Igas kohas, kus aeg-kiiruse graafik seda telge läbib, on kiirus maksimaalne, mistõttu on ka punkte hõredamalt kui tippudes, kus kiirus nullistub. Aeg-kiirus-graafiku tippude kohal on aeg-positsioon-graafiku ja abstsisstelje lõikepunktid, mis tähendab seda, et kui kiirus on maksimaalne, siis vedru otsas rippuva asjanduse alumine serv oli tasakaalu positsioonis. Aeg-positsioon-graafiku tippudega on kohakuti aeg-kiirus-graafiku lõikepunktid abstsissteljega, mis tähendab, et kui vedru küljes rippuva asjanduse alumine serv oli kas maksimaalses ülemises või alumises positsioonis, ei liikunud asjandus.
+
+Tabelis \@ref(tab:period) on esitatud aja, hälbe tasakaaluasendist ja kiiruse väärtused ühe perioodi ulatuses. Samuti lasin sinna arvutada energiaväärtused kasutades valemeid \@ref(eq:kinetic-energy) ja \@ref(eq:potential-energy) leheküljel $\pageref{eq:potential-energy}$.
+
+```{r label = "period"}
+
+position <- c(
+  "Lähe",
+  "Alumine tipp 1",
+  "$\\begin{rotate}{10}Vahepealne punkt\\end{rotate}$",
+  "$\\begin{rotate}{10}Tasakaaluasend\\end{rotate}$",
+  "$\\begin{rotate}{10}Vahepealne punkt\\end{rotate}$",
+  "Ülemine tipp",
+  "$\\begin{rotate}{350}Vahepealne punkt\\end{rotate}$",
+  "$\\begin{rotate}{350}Tasakaaluasend\\end{rotate}$",
+  "$\\begin{rotate}{350}Vahepealne punkt\\end{rotate}$",
+  "Alumine tipp 2"
+)
+
+x <- c(
+  1,
+  minima[1],
+  (inflections[1] - minima[1]) / 2 + minima[1],
+  inflections[1],
+  (maxima[1] - inflections[1]) / 2 + inflections[1],
+  maxima[1],
+  (inflections[2] - maxima[1]) / 2 + maxima[1],
+  inflections[2],
+  (minima[2] - inflections[2]) / 2 + inflections[2],
+  minima[2]
+)
+
+delta_x_prime <- time_position$`Position (m) Run 3`[x] - x_tas
+t <- time_position$`Time (s) Run 3`[x]
+v <- time_position$`Velocity (m/s) Run 3`[x]
+max_v <- max(v)
+E_k <- m_5 * v^2 / 2
+E_p <- signif(abs_k * delta_x_prime^2 / 2, digits = 2)
+period <- data.frame(position, delta_x_prime, t, v, E_k, E_p)
+colnames(period) <- c("Asukoht", "Hälve tasakaalu asendi suhtes $\\frac{\\Delta(x')}{\\mathrm{m}}$", "Aeg $\\frac{t}{\\mathrm{s}}$", "Kiirus $\\frac{v}{\\mathrm{\\frac{m}{s}}}$", "Kineetiline energia $\\frac{E_{k}}{\\mathrm{J}}$", "Potentsiaalne energia $\\frac{E_{p}}{\\mathrm{J}}$")
+
+period <- mutate(period, "Kiirus $\\frac{v}{\\mathrm{\\frac{m}{s}}}$" = cell_spec(v, color = ifelse(v == max_v, "red", ifelse(abs(v) < .1, "magenta", "black"))))
+period <- mutate(period, "Kineetiline energia $\\frac{E_{k}}{\\mathrm{J}}$" = cell_spec(signif(E_k, digits = 2), color = ifelse(E_k == min(E_k), "olive", ifelse(E_k == max(E_k), "teal", "black"))))
+period <- mutate(period, "Potentsiaalne energia $\\frac{E_{p}}{\\mathrm{J}}$" = cell_spec(E_p, color = ifelse(E_p == min(E_p), "cyan", ifelse(E_p == max(E_p), "violet", "black"))))
+
+librarian::shelf("kableExtra")
+
+print_table(period, caption = "Võnkumiste uurimine vedrupendli näitel: Vedru otsas rippuva asjanduse kiirus oli $\\textbf{\\color{red}suurim}$ tasakaaluasendis ning $\\textbf{\\color{magenta}null või nullilähedane}$ igas tipus, mis on tasakaaluasendist kõige kaugemal. Tegelikult on tippasukohtades kiirus null, aga kui sa nüüd lugesid korralikult lähtekoodi, siis ma lasin need punktid arvutada tippude keskmiste põhjal, mistõttu ei pruukinud saada just täpselt seda tippu, milles kiirus null oli. Vedru küljes rippuva asjanduse kineetiline energia oli $\\textbf{\\color{teal}suurim}$ tasakaalupositsioonides ja $\\textbf{\\color{olive}väikseim}$ äärmuslikes positsioonides ning potentsiaalne energia oli $\\textbf{\\color{violet}suurim}$ tippasukohtades ja $\\textbf{\\color{cyan}väikseim}$ tasakaaluasukohtades. Nii peabki olema, sest kui asjandus on paigal, on potentsiaalne energia maksimaalne ja kineetiline minimaalne ning kui liigub, on vastupidi.", digits = 3) %>%
+  row_spec(which(v == max_v), bold = TRUE) %>%
+  row_spec(which(abs(v) < .1), bold = TRUE) %>%
+  row_spec(which(E_p == min(E_p)), bold = TRUE)
+
+```

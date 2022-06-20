@@ -4,7 +4,6 @@
 include_svg("katseseadme-ülesseadmine/katseseadme-ülesseadmine.svg")
 ```
 
-
 ```{r label = "harmonic-oscillation", fig.cap = "Katsevahendite asetus vedru harmoonilise võnkumise analüüsiks", fig.margin = TRUE}
 include_svg("katseseadme-ülesseadmine/harmonic-oscillation.svg")
 ```

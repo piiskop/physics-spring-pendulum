@@ -7,8 +7,24 @@ bookdown::pdf_book:
   latex_engine: xelatex
   #citation_package: natbib
   keep_tex: yes
+  pandoc_args: [
+    # --listings,
+    # --shell-escape,
+    --highlight-style=tango
+  ]
   template: template.tex
-  extra_dependencies: ["float", "flafter"]
+  # extra_dependencies: [
+  #   "amsfonts",
+  #   "amsmath",
+  #   "amssymb",
+  #   "apacite",
+  #   "blindtext",
+  #   "calc",
+  #   "csquotes",
+  #   "flafter",
+  #   "mathrsfs",
+  #   "ppm",
+  # ]
   fig_caption: yes
 bookdown::epub_book: default
 bookdown::word_document2:

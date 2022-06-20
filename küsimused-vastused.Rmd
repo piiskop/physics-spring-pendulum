@@ -1,1 +1,58 @@
 # Vastused küsimustele
+
+1.  **Milline on erinevus mõõdetud ja arvutatud võnkeperioodide *T* ja $T_f$ vahel? Lasin arvutada suhtelise erinevuse vastavalt valemile \@ref(eq:relative-difference):**
+
+    ```{r}
+    R_T <- (T_f - mean_period) / T_f
+    ```
+    
+    `r signif(R_T, digits = 2)` on erinevus mõõdetud ja arvutatud võnkeperioodide vahel. Kuna selle absoluutväärtus on alla 0.1, järeldan, et eksperiment õnnestus.
+    
+2.  **Mida nimetatakse võnkumise võnkeperioodiks? Mida nimetatakse sageduseks? Kuidas antud töö korral leidsin võnkumise perioodi?**
+
+    võnkeperiood
+    : ajavahe kahe sama magnituudiga faasi vahel
+    : ajavahemik ühe võnke sooritamiseks
+    
+    sagedus
+    : perioodi pöördväärtus
+    : sündmuste arv ajaühiku kohta
+    : perioodilise nähtuse tsüklite arv jagatuna ajaga [@haynes_2014_crc, p. 2-53]
+    
+    Antud töö korral leidsin võnkumise perioodi kahel viisil: nii mõõtmiste kui arvutamise kaudu. Esimesel juhul kasutasin mõõtmiseks sensorit, mis mõõtis ja edastas andmeid nagu kaugus sensorist, aeg, kiirus ja kiirendus. Maksimaalsete kauguste tasakaalu positsioonist vahed olid perioodid, millest arvutasin keskmise. Teisel juhul mõõtsin vedru jälkuse, selle otsa riputatud asjanduse massi ja kasutasin valemit period.
+    
+3.  **Mida nimetatakse võnkumiste algfaasiks? Mida kujutab endast faasinihe? Märkisin aeg-asukoht- ja aeg-kiirus-graafikutele erinevate pendli asendite korral võnkumise faasi ja võnkumise kiiruse faasi (nt tasakaalu- ja maksimaalse hälbe kohtadel) kraadides ja radiaanides.**
+
+    võnkumiste algfaas
+    : faas, millest alates arvestatakse perioodi
+    
+    faasinihe
+    : nurk, mida kasutatakse kosiinuses või siinuses nihutamaks funktsiooni graafikut vasakule või paremale
+    
+    Faasinihet kasutatakse funktsiooni sobitamiseks andmete esialgsele olekule.
+    
+    Esimese tasakaalu positsiooni ja ülemise maksimaalse asukoha faasid on märgitud joonisele \@ref(fig:both-lines).
+    
+4.  **Teades võnkumiste amplituudi ja teisi võnkumisi iseloomustavaid suurusi, milline on üldine võnkumise võrrand \@ref(eq:deviation) leheküljel $\pageref{eq:deviation}$ konkreetselt minu eksperimendi jaoks? Kirjutan välja ka võrrandi \@ref(eq:deviation) erijuhu alghetke $t := 0$ ja oma valitud ajahetke jaoks. Kontrollin, kas erijuhul leitud punkt langeb aeg-asukoht-graafikule õigesse kohta.**
+
+    Üldine võrrand:
+
+    ```{=tex}
+    \begin{align}
+    x := `r x_max` \times sin(`r signif(2 / mean_period, digits = 2)` \times \pi \times t + `r signif(phi_0_unshifted, digits = 3)`).
+    (\#eq:common-equation)
+    \end{align}
+    ```
+
+    ```{r label = "special-points"}
+    calculate_x <- function(t) {
+      x_max * sin(2 / mean_period * pi * t + phi_0_unshifted)
+    }
+    
+    x_0 <- calculate_x(0)
+    x_special <- calculate_x(5)
+    
+    ```
+
+
+    Hetke $t := 0$ kohta mitte mingeid andmeid mul pole. Lähtudes üldvõrrandist \@ref(eq:common-equation) võinuks sellises ajahetkes olla hälve $`r signif(x_0, digits = 2)` \mathrm{\times m}$. Viienda sekundi lõpus oli valemi järgi vedru otsas rippuva asjanduse alumise serva hälve tasakaaluasendist $\textcolor{green}{`r signif(x_special, digits = 2)` \mathrm{\times m}}$. Graafikul on see õiges kohas tähistatuna rohelise sõõrina joonisel \@ref(fig:both-lines) leheküljel $\pageref{fig:both-lines}$.
