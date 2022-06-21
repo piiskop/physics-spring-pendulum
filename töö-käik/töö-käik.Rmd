@@ -123,10 +123,6 @@ print_table(determination_of_spring_stiffness, caption = "Vedru jälkuse määra
 
 ```
 
-```{=tex}
-\twocolumn
-```
-
 ## Praktiline osa 2: Võnkeperioodi määramine ja võnkliikumise uurimine
 
 Selles laboratoorse töö osas jälgis liikumissensor vedru külge riputatud raskuse liikumist. Programm *DataStudio* salvestas liikumist iseloomustavad suurused (asend - kaugus sensorist; kiirus liikumise jooksul) ja kuvas võnkuva raskuse asendi ning kiiruse ekraanile. Määrati võnkeperiood ja saadud tulemust võrreldi teoreetiliselt saadud väärtusega:

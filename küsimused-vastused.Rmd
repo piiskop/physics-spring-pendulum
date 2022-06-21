@@ -19,7 +19,7 @@
     : sündmuste arv ajaühiku kohta
     : perioodilise nähtuse tsüklite arv jagatuna ajaga [@haynes_2014_crc, p. 2-53]
     
-    Antud töö korral leidsin võnkumise perioodi kahel viisil: nii mõõtmiste kui arvutamise kaudu. Esimesel juhul kasutasin mõõtmiseks sensorit, mis mõõtis ja edastas andmeid nagu kaugus sensorist, aeg, kiirus ja kiirendus. Maksimaalsete kauguste tasakaalu positsioonist vahed olid perioodid, millest arvutasin keskmise. Teisel juhul mõõtsin vedru jälkuse, selle otsa riputatud asjanduse massi ja kasutasin valemit period.
+    Antud töö korral leidsin võnkumise perioodi kahel viisil: nii mõõtmiste kui arvutamise kaudu. Esimesel juhul kasutasin mõõtmiseks sensorit, mis mõõtis ja edastas andmeid nagu kaugus sensorist, aeg, kiirus ja kiirendus. Maksimaalsete kauguste tasakaalu positsioonist vahed olid perioodid, millest arvutasin keskmise. Teisel juhul mõõtsin vedru jälkuse, selle otsa riputatud asjanduse massi ja kasutasin valemit \@ref(eq:period).
     
 3.  **Mida nimetatakse võnkumiste algfaasiks? Mida kujutab endast faasinihe? Märkisin aeg-asukoht- ja aeg-kiirus-graafikutele erinevate pendli asendite korral võnkumise faasi ja võnkumise kiiruse faasi (nt tasakaalu- ja maksimaalse hälbe kohtadel) kraadides ja radiaanides.**
 

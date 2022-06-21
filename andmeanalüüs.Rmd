@@ -518,7 +518,7 @@ ggplot(data = selected_oscillations, aes(x = `Time (s) Run 3`)) +
 ```
 
 
-Kummagi graafiku kuju on sama. Tasakaaluasend on abstsisstelg. Igas kohas, kus aeg-kiiruse graafik seda telge läbib, on kiirus maksimaalne, mistõttu on ka punkte hõredamalt kui tippudes, kus kiirus nullistub. Aeg-kiirus-graafiku tippude kohal on aeg-positsioon-graafiku ja abstsisstelje lõikepunktid, mis tähendab seda, et kui kiirus on maksimaalne, siis vedru otsas rippuva asjanduse alumine serv oli tasakaalu positsioonis. Aeg-positsioon-graafiku tippudega on kohakuti aeg-kiirus-graafiku lõikepunktid abstsissteljega, mis tähendab, et kui vedru küljes rippuva asjanduse alumine serv oli kas maksimaalses ülemises või alumises positsioonis, ei liikunud asjandus.
+Kummagi graafiku kuju on sama. Tasakaaluasend on abstsisstelg. Igas kohas, kus aeg-asukoha graafik seda telge läbib, on kiirus maksimaalne, mistõttu on ka punkte hõredamalt kui tippudes, kus kiirus nullistub. Aeg-kiirus-graafiku tippude kohal on aeg-positsioon-graafiku ja abstsisstelje lõikepunktid, mis tähendab seda, et kui kiirus on maksimaalne, siis vedru otsas rippuva asjanduse alumine serv oli tasakaalu positsioonis. Aeg-positsioon-graafiku tippudega on kohakuti aeg-kiirus-graafiku lõikepunktid abstsissteljega, mis tähendab, et kui vedru küljes rippuva asjanduse alumine serv oli kas maksimaalses ülemises või alumises positsioonis, ei liikunud asjandus.
 
 Tabelis \@ref(tab:period) on esitatud aja, hälbe tasakaaluasendist ja kiiruse väärtused ühe perioodi ulatuses. Samuti lasin sinna arvutada energiaväärtused kasutades valemeid \@ref(eq:kinetic-energy) ja \@ref(eq:potential-energy) leheküljel $\pageref{eq:potential-energy}$.
 
